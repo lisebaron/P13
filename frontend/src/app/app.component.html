@@ -1,0 +1,75 @@
+  <div style="display: grid;">
+    <span>
+      <label for="username">Username</label>
+      <input type="text" id="username" [(ngModel)]="username"/>
+    </span>
+    <div style="display: flex;">
+      <button
+        [disabled]="connected || !this.username"
+        (click)="connect()">
+        Connect
+      </button>
+  
+      <button
+        [disabled]="!connected"
+        (click)="disconnect()">
+        Disconnect
+      </button>
+    </div>
+  </div>
+  <div style="padding-top: 1em" *ngIf="connected">
+    <div>
+      <span>
+        <label for="text">Text</label>
+        <input type="text" id="text" [(ngModel)]="text"/>
+      </span>
+      <button 
+        [disabled]="!text"
+        (click)="sendMessage()">
+        Send
+      </button>
+    </div>
+  </div>
+
+<div style="display: flex; gap: 20px; justify-content: space-around;">
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th><h3>Envoyé(s) :</h3></th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let message of sent">
+      <tr>
+        <td>
+          <b>
+            {{message.time | date: 'dd/MM/yyyy hh:mm:ss'}}
+          </b>
+          <p>
+            {{message.text}}</p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th><h3>Reçu(s) :</h3></th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let message of received">
+      <tr>
+        <td>
+          <b>
+            {{message.time | date: 'dd/MM/yyyy hh:mm:ss'}}
+          </b>
+          <p>
+            {{message.name}}: {{message.text}}</p>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
